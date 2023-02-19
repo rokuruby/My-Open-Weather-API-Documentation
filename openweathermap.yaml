@@ -1,0 +1,296 @@
+openapi: 3.1.0
+x-stoplight:
+  id: 8m0akd4v243er
+info:
+  title: OpenWeatherMap API
+  version: '1.0'
+  description: |-
+    A sample API documentation by Tiong using the Open Weather Map API!! 
+
+    Get the current weather, daily forecast for 16 days, and a three-hour-interval forecast for 5 days for your city. Helpful stats, graphics, and this day in history charts are available for your reference. Interactive maps show precipitation, clouds, pressure, wind around your location stations. Data is available in JSON, XML, or HTML format. **Note**: This sample Swagger file covers the `current` endpoint only from the OpenWeatherMap API. <br/><br/> **Note**: All parameters are optional, but you must select at least one parameter. Calling the API by city ID (using the `id` parameter) will provide the most precise location results.
+  summary: Get the current weather with openweathermap. Sample API documentation by TIong
+  contact:
+    name: Support
+    url: 'https://openweathermap.org/api'
+    email: some_email@gmail.com
+  termsOfService: 'https://openweathermap.org/terms'
+  license:
+    name: ' Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)'
+    url: 'https://creativecommons.org/licenses/by-sa/4.0/'
+servers:
+  - url: 'https://api.openweathermap.org/data/2.5'
+    description: prod
+paths:
+  /weather:
+    get:
+      summary: Weather
+      tags:
+        - Weather endpoints
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                x-examples:
+                  Example 1:
+                    coord:
+                      lon: -121.95
+                      lat: 37.35
+                    weather:
+                      - id: 803
+                        main: Clouds
+                        description: broken clouds
+                        icon: 04n
+                    base: stations
+                    main:
+                      temp: 45.25
+                      feels_like: 41.16
+                      temp_min: 41
+                      temp_max: 50
+                      pressure: 1026
+                      humidity: 75
+                    visibility: 16093
+                    wind:
+                      speed: 2.57
+                      deg: 36
+                    clouds:
+                      all: 75
+                    dt: 1579415808
+                    sys:
+                      type: 1
+                      id: 5845
+                      country: US
+                      sunrise: 1579360793
+                      sunset: 1579396557
+                    timezone: -28800
+                    id: 0
+                    name: Santa Clara
+                    cod: 200
+                properties:
+                  coord:
+                    type: object
+                    properties:
+                      lon:
+                        type: number
+                        description: |2
+
+
+                              description: City geo location, longitude
+                              example: 145.77
+                      lat:
+                        type: number
+                        description: |2
+
+
+                              description: City geo location, latitude
+                              example: -16.92
+                  weather:
+                    type: array
+                    description: |
+                      test description
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          description: |2
+
+
+                                description: test
+                        main:
+                          type: string
+                        description:
+                          type: string
+                        icon:
+                          type: string
+                  base:
+                    type: string
+                  main:
+                    type: object
+                    properties:
+                      temp:
+                        type: number
+                      feels_like:
+                        type: number
+                      temp_min:
+                        type: integer
+                      temp_max:
+                        type: integer
+                      pressure:
+                        type: integer
+                      humidity:
+                        type: integer
+                  visibility:
+                    type: integer
+                  wind:
+                    type: object
+                    properties:
+                      speed:
+                        type: number
+                      deg:
+                        type: integer
+                  clouds:
+                    type: object
+                    properties:
+                      all:
+                        type: integer
+                  dt:
+                    type: integer
+                  sys:
+                    type: object
+                    properties:
+                      type:
+                        type: integer
+                      id:
+                        type: integer
+                      country:
+                        type: string
+                      sunrise:
+                        type: integer
+                      sunset:
+                        type: integer
+                  timezone:
+                    type: integer
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  cod:
+                    type: integer
+      operationId: get-weather
+      description: 'Access current weather data for any location on Earth including over 200,000 cities! Current weather is frequently updated based on global models and data from more than 40,000 weather stations.'
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: zip
+          description: '**Zip code**. Search by zip code. *Example: 95050,us*. Please note that if the country is not specified, the search uses USA as a default.'
+        - schema:
+            type: string
+            enum:
+              - standard
+              - metric
+              - imperial
+          in: query
+          name: units
+          description: ' **Units**. *Example: imperial*. Possible values: `standard`, `metric`, and `imperial`. When you do not use the `units` parameter, the format is `standard` by default.'
+        - schema:
+            type: string
+          in: query
+          name: q
+          description: '**City name**. *Example: London*. You can call by city name, or by city name and country code. The API responds with a list of results that match a searching word. For the query value, type the city name and optionally the country code divided by a comma; use ISO 3166 country codes.'
+        - schema:
+            type: string
+          in: query
+          name: id
+          description: '**City ID**. *Example: `2172797`*. You can call by city ID. The API responds with the exact result. The List of city IDs can be downloaded [here](http://bulk.openweathermap.org/sample/). You can include multiple cities in this parameter — just separate them by commas. The limit of locations is 20. *Note: A single ID counts as a one API call. So, if you have city IDs, it’s treated as 3 API calls.*'
+        - $ref: '#/components/parameters/lon'
+        - schema:
+            type: string
+            default: en
+            enum:
+              - 'enum: enums: “ar'
+              - bg
+              - ca
+              - cz
+              - de
+              - el
+              - en
+              - fa
+              - fi
+              - fr
+              - gl
+              - hr
+              - hu
+              - it
+              - ja
+              - kr
+              - la
+              - lt
+              - mk
+              - nl
+              - pl
+              - pt
+              - ro
+              - ru
+              - se
+              - sk
+              - sl
+              - es
+              - tr
+              - ua
+              - vi
+              - zh_cn
+              - zh_tw”
+          in: query
+          name: lang
+          description: '**Language**. *Example: en*. You can use `lang` parameter to get the output in your language. We support the following languages that you can use with the corresponded lang values: Arabic - `ar`, Bulgarian - `bg`, Catalan - `ca`, Czech - `cz`, German - `de`, Greek - `el`, English - `en`, Persian (Farsi) - `fa`, Finnish - `fi`, French - `fr`, Galician - `gl`, Croatian - `hr`, Hungarian - `hu`, Italian - `it`, Japanese - `ja`, Korean - `kr`, Latvian - `la`, Lithuanian - `lt`, Macedonian - `mk`, Dutch - `nl`, Polish - `pl`, Portuguese - `pt`, Romanian - `ro`, Russian - `ru`, Swedish - `se`, Slovak - `sk`, Slovenian - `sl`, Spanish - `es`, Turkish - `tr`, Ukrainian - `ua`, Vietnamese - `vi`, Chinese Simplified - `zh_cn`, Chinese Traditional - `zh_tw`.'
+        - schema:
+            type: string
+            default: json
+            enum:
+              - json
+              - xml
+              - html
+          in: query
+          name: mode
+          description: '**Mode**. Example: html. Determines the format of the response. Possible values are `json`, `xml`, and `html`. If the mode parameter is empty, the format is `json` by default.'
+components:
+  schemas:
+    User:
+      title: User
+      type: object
+      description: ''
+      examples:
+        - id: 142
+          firstName: Alice
+          lastName: Smith
+          email: alice.smith@gmail.com
+          dateOfBirth: '1997-10-31'
+          emailVerified: true
+          signUpDate: '2019-08-24'
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the given user.
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+          format: email
+        dateOfBirth:
+          type: string
+          format: date
+          example: '1997-10-31'
+        emailVerified:
+          type: boolean
+          description: Set to true if the user's email has been verified.
+        createDate:
+          type: string
+          format: date
+          description: The date that the user was created.
+      required:
+        - id
+        - firstName
+        - lastName
+        - email
+        - emailVerified
+  securitySchemes:
+    app_id:
+      name: appid
+      type: apiKey
+      in: query
+  parameters:
+    lon:
+      name: lon
+      in: query
+      required: false
+      schema:
+        type: string
+      description: '**Longitude**. *Example: 139*. Longitude coordinate of the location of your interest. Must use with `lat `.'
+security:
+  - app_id: []
